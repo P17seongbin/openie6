@@ -184,11 +184,11 @@ def process_data(hparams, predict_sentences=None):
     all_sentences = []
     if 'predict' in hparams.mode:
         # no caching used in predict mode
-        if predict_sentences == None:  # predict
+        if predict_sentences is None:  # predict
             if hparams.inp != None:
-                predict_f = open(hparams.inp, 'r')
+                predict_f = open(hparams.inp, 'r',encoding='utf-8')
             else:
-                predict_f = open(hparams.predict_fp, 'r')
+                predict_f = open(hparams.predict_fp, 'r',encoding='utf-8')
             predict_lines = predict_f.readlines()
             fullstops = []
             predict_sentences = []

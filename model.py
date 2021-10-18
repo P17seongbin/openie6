@@ -524,9 +524,9 @@ class Model(pl.LightningModule):
             out_fp = f'{self.hparams.out}.{self.hparams.task}'
             # print('Predictions written to ', out_fp)
             if batch_idx == 0:
-                predictions_f = open(out_fp,'w')
+                predictions_f = open(out_fp,'w',encoding='utf-8')
             else:
-                predictions_f = open(out_fp,'a')
+                predictions_f = open(out_fp,'a',encoding='utf-8')
             predictions_f.write('\n'.join(all_pred)+'\n')
             predictions_f.close()
         if task == 'oie' and self.hparams.write_allennlp:
