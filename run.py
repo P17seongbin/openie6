@@ -149,7 +149,11 @@ def predict(hparams, checkpoint_callback, meta_data_vocab, train_dataloader, val
     else:
         loaded_hparams_dict = torch.load(checkpoint_path, map_location=torch.device('cpu'))['hparams']
     current_hparams_dict = vars(hparams)
-    loaded_hparams_dict = data.override_args(loaded_hparams_dict, current_hparams_dict, sys.argv[1:])
+    if hparams.full_override:
+        loaded_hparams_dict = data.override_args(loaded_hparams_dict, current_hparams_dict,
+                                                 [f'--{k}' for k in current_hparams_dict.keys()])
+    else:
+        loaded_hparams_dict = data.override_args(loaded_hparams_dict, current_hparams_dict, sys.argv[1:])
     loaded_hparams = data.convert_to_namespace(loaded_hparams_dict)
     model = Model(loaded_hparams, meta_data_vocab)
 

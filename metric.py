@@ -87,7 +87,7 @@ class Coordination(object):
                     "Coordination does not contain enough separators. "
                     "It may be a wrong coordination: "
                     "cc={}, conjuncts={}, separators={}"
-                    .format(cc, conjuncts, seps))
+                        .format(cc, conjuncts, seps))
         else:
             seps = []
         self.cc = cc
@@ -115,9 +115,9 @@ class Coordination(object):
         if not isinstance(other, Coordination):
             return False
         return self.cc == other.cc \
-            and len(self.conjuncts) == len(other.conjuncts) \
-            and all(conj1 == conj2 for conj1, conj2
-                    in zip(self.conjuncts, other.conjuncts))
+               and len(self.conjuncts) == len(other.conjuncts) \
+               and all(conj1 == conj2 for conj1, conj2
+                       in zip(self.conjuncts, other.conjuncts))
 
 
 def post_process(coords, is_quote):
@@ -135,7 +135,6 @@ def post_process(coords, is_quote):
 
 
 class Counter(object):
-
     class Criteria(Enum):
         WHOLE = 0
         OUTER = 1
@@ -162,10 +161,10 @@ class Counter(object):
                 coord_label = true_coord.label
                 if self._criteria == Counter.Criteria.WHOLE:
                     correct = pred_conjuncts[0][0] == true_conjuncts[0][0] \
-                        and pred_conjuncts[-1][1] == true_conjuncts[-1][1]
+                              and pred_conjuncts[-1][1] == true_conjuncts[-1][1]
                 elif self._criteria == Counter.Criteria.OUTER:
                     correct = pred_conjuncts[0] == true_conjuncts[0] \
-                        and pred_conjuncts[-1] == true_conjuncts[-1]
+                              and pred_conjuncts[-1] == true_conjuncts[-1]
                 elif self._criteria == Counter.Criteria.INNER:
                     pred_pair = pred_coord.get_pair(cc, check=True)
                     true_pair = true_coord.get_pair(cc, check=True)
@@ -214,9 +213,10 @@ def get_coords(all_depth_labels, tokens=None, correct=False):
             if label != 1:  # conjunction can end
                 if conjunction and cp != None:
                     conjunction = False
-                    cp['conjuncts'].append((start_index, i-1))
+                    cp['conjuncts'].append((start_index, i - 1))
             if label == 0 or label == 2:  # coordination phrase can end
-                if cp != None and len(cp['conjuncts']) >= 2 and cp['cc'] > cp['conjuncts'][0][1] and cp['cc'] < cp['conjuncts'][-1][0]:
+                if cp != None and len(cp['conjuncts']) >= 2 and cp['cc'] > cp['conjuncts'][0][1] and cp['cc'] < \
+                        cp['conjuncts'][-1][0]:
                     found = True
                     coordination = Coordination(
                         cp['cc'], cp['conjuncts'], label=depth)
@@ -267,7 +267,7 @@ def dedup_extractions(extractions_list, conj_words):
     delete_indices = []
     conj_words_set = set(conj_words)
     for i in range(len(all_ext_words)):
-        for j in range(i+1, len(all_ext_words)):
+        for j in range(i + 1, len(all_ext_words)):
             ext_i_str = ' '.join(all_ext_words[i])
             ext_j_str = ' '.join(all_ext_words[j])
             if ext_i_str == ext_j_str:
@@ -306,12 +306,12 @@ class Conjunction():
         self.n_sentence = 0
         self._dump_dir = dump_dir
         if self._dump_dir != None:
-            if os.path.exists(dump_dir+'/tokens.pkl'):
-                os.remove(dump_dir+'/tokens.pkl')
-            if os.path.exists(dump_dir+'/pred_it_coords.pkl'):
-                os.remove(dump_dir+'/pred_it_coords.pkl')
-            if os.path.exists(dump_dir+'/gt_it_coords.pkl'):
-                os.remove(dump_dir+'/gt_it_coords.pkl')
+            if os.path.exists(dump_dir + '/tokens.pkl'):
+                os.remove(dump_dir + '/tokens.pkl')
+            if os.path.exists(dump_dir + '/pred_it_coords.pkl'):
+                os.remove(dump_dir + '/pred_it_coords.pkl')
+            if os.path.exists(dump_dir + '/gt_it_coords.pkl'):
+                os.remove(dump_dir + '/gt_it_coords.pkl')
 
     def __call__(self, predictions, ground_truth, meta_data=None, coords=False):
         # coords == True when we give it the complete coords
@@ -331,11 +331,11 @@ class Conjunction():
             self._counter_exact.append(pred_coords, true_coords)
 
             if self._dump_dir:
-                pickle.dump(tokens, open(self._dump_dir+'/tokens.pkl', 'ab'))
+                pickle.dump(tokens, open(self._dump_dir + '/tokens.pkl', 'ab'))
                 pickle.dump(pred_coords, open(
-                    self._dump_dir+'/pred_it_coords.pkl', 'ab'))
+                    self._dump_dir + '/pred_it_coords.pkl', 'ab'))
                 pickle.dump(true_coords, open(
-                    self._dump_dir+'/gt_it_coords.pkl', 'ab'))
+                    self._dump_dir + '/gt_it_coords.pkl', 'ab'))
         return
 
     def reset(self):
@@ -380,8 +380,8 @@ class Conjunction():
 class Carb():
     def __init__(self, hparams, mapping=None):
         super(Carb, self).__init__()
-        self._dev_benchmark = Benchmark('openie6/carb/data/gold/dev.tsv')
-        self._test_benchmark = Benchmark('openie6/carb/data/gold/test.tsv')
+        self._dev_benchmark = Benchmark(hparams.carb_benchmark_root + '/dev.tsv')
+        self._test_benchmark = Benchmark(hparams.carb_benchmark_root + '/test.tsv')
         self.matchingFunc = Matcher.binary_linient_tuple_match
         self._all_predictions, self._all_pos_words, self._all_verb_words = {}, {}, {}
         self.score = {'carb_auc': 0.0, 'carb_f1': 0.0, 'carb_sum': 0.0}
@@ -435,7 +435,8 @@ class Carb():
         if self.num_extractions:
             for sentence in self._all_predictions:
                 self._all_predictions[sentence] = sorted(self._all_predictions[sentence],
-                                                         key=lambda x: x.confidence, reverse=True)[:self.num_extractions]
+                                                         key=lambda x: x.confidence, reverse=True)[
+                                                  :self.num_extractions]
 
         out_filename = "/dev/null"
         if mode == 'dev':
@@ -483,18 +484,18 @@ class Carb():
 
         rel = ' '.join(rel).strip()
         if rel_case == 1:
-            rel = 'is '+rel
+            rel = 'is ' + rel
         elif rel_case == 2:
-            rel = 'is '+rel+' of'
+            rel = 'is ' + rel + ' of'
         elif rel_case == 3:
-            rel = 'is '+rel+' from'
+            rel = 'is ' + rel + ' from'
 
         arg1 = ' '.join(arg1).strip()
         arg2 = ' '.join(arg2).strip()
         args = ' '.join(args).strip()
         loc_time = ' '.join(loc_time).strip()
         if not self.hparams.no_lt:
-            arg2 = (arg2+' '+loc_time+' '+args).strip()
+            arg2 = (arg2 + ' ' + loc_time + ' ' + args).strip()
         sentence_str = ' '.join(sentence).strip()
 
         extraction = Extraction(
@@ -510,11 +511,11 @@ class Carb():
             extr = line.split('\t')
             sentence = extr[0]
             confidence = float(extr[2])
-            
+
             arg1 = re.findall("<arg1>.*</arg1>", extr[1])[0].strip('<arg1>').strip('</arg1>').strip()
             rel = re.findall("<rel>.*</rel>", extr[1])[0].strip('<rel>').strip('</rel>').strip()
             arg2 = re.findall("<arg2>.*</arg2>", extr[1])[0].strip('<arg2>').strip('</arg2>').strip()
-            
+
             extraction = Extraction(pred=rel, head_pred_index=None, sent=sentence, confidence=confidence, index=0)
             extraction.addArg(arg1)
             extraction.addArg(arg2)

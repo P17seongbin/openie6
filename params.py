@@ -35,6 +35,8 @@ def add_args(parser):
     parser.add_argument('--predict_format', type=str,
                         default='oie')  # oie/allennlp
     parser.add_argument('--build_cache', action='store_true')
+    parser.add_argument('--carb_benchmark_root', type=str, default='carb/data/gold',
+                        help='root directory for carb benchmark data')
 
     # Model arguments
     # bert-large-cased-whole-word-masking, bert-large-cased, bert-base-cased
@@ -66,5 +68,7 @@ def add_args(parser):
     parser.add_argument('--inp', type=str)
     parser.add_argument('--out', type=str)
     parser.add_argument('--type', type=str, default='')
+    parser.add_argument('--full_override',type=bool, default=False,
+                        help='override all saved parameters to argument or config file')
 
     return parser
