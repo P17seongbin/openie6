@@ -31,19 +31,19 @@ import ipdb
 from _collections import defaultdict
 logging.basicConfig(level = logging.INFO)
 
-from oie_readers.stanfordReader import StanfordReader
-from oie_readers.ollieReader import OllieReader
-from oie_readers.reVerbReader import ReVerbReader
-from oie_readers.clausieReader import ClausieReader
-from oie_readers.openieFourReader import OpenieFourReader
-from oie_readers.openieFiveReader import OpenieFiveReader
-from oie_readers.propsReader import PropSReader
-from oie_readers.tabReader import TabReader
-from oie_readers.benchmarkGoldReader import BenchmarkGoldReader
-from oie_readers.allennlpReader import AllennlpReader
-from oie_readers.goldReader import GoldReader
+from openie6.carb.oie_readers.stanfordReader import StanfordReader
+from openie6.carb.oie_readers.ollieReader import OllieReader
+from openie6.carb.oie_readers.reVerbReader import ReVerbReader
+from openie6.carb.oie_readers.clausieReader import ClausieReader
+from openie6.carb.oie_readers.openieFourReader import OpenieFourReader
+from openie6.carb.oie_readers.openieFiveReader import OpenieFiveReader
+from openie6.carb.oie_readers.propsReader import PropSReader
+from openie6.carb.oie_readers.tabReader import TabReader
+from openie6.carb.oie_readers.benchmarkGoldReader import BenchmarkGoldReader
+from openie6.carb.oie_readers.allennlpReader import AllennlpReader
+from openie6.carb.oie_readers.goldReader import GoldReader
 
-from matcher import Matcher
+from openie6.carb.matcher import Matcher
 from operator import itemgetter
 import pprint
 from copy import deepcopy, copy

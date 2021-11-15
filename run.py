@@ -1,6 +1,5 @@
 import sys
 
-sys.path.insert(0, 'imojie')
 
 import numpy as np
 import random
@@ -12,18 +11,17 @@ import argparse
 import shutil
 import sys
 import os
-import params
-import data
+
+import openie6.data as data
+from openie6.model import Model, set_seed
+
 import math
-from model import Model, set_seed
 from torch.utils.data import DataLoader
 import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.logging import TensorBoardLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 import warnings
-from imojie.aggregate.score import rescore
-from oie_readers.extraction import Extraction
 
 # necessary to ignore lots of numpy+tensorflow warnings
 warnings.filterwarnings('ignore')
@@ -446,8 +444,8 @@ def prepare_test_dataset(hparams, model, sentences, orig_sentences, sentences_in
     lines.append('\n')
     return lines
 
-
-def main(hparams):
+# 학습 -> 데이터 리턴 둘다 진행. 여기서 나오는 지식그래프를 인계하는 로직 설계 필요 (별도의 파일에 구축?)
+def openie6_main(hparams):
     """
     Main training routine specific for this project
     :param hparams:
@@ -487,10 +485,18 @@ def main(hparams):
 
 
 if __name__ == "__main__":
+
+    # Import openie6 folder file
+    import params
+
+
+    from imojie.imojie.aggregate.score import rescore
+    from openie6.carb.oie_readers.extraction import Extraction
+
     parser = argparse.ArgumentParser()
     parser = Trainer.add_argparse_args(parser)
     parser = params.add_args(parser)
     hyperparams = parser.parse_args()
     set_seed(hyperparams.seed)
 
-    main(hyperparams)
+    openie6_main(hyperparams)

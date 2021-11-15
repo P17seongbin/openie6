@@ -1,5 +1,5 @@
-from oie_readers.oieReader import OieReader
-from oie_readers.extraction import Extraction
+from openie6.carb.oie_readers.oieReader import OieReader
+from openie6.carb.oie_readers.extraction import Extraction
 
 
 class PropSReader(OieReader):

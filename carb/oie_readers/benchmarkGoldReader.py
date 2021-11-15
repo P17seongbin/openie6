@@ -7,8 +7,8 @@ sent, prob, pred, arg1, arg2, ...
 
 """
 
-from oie_readers.oieReader import OieReader
-from oie_readers.extraction import Extraction
+from openie6.carb.oie_readers.oieReader import OieReader
+from openie6.carb.oie_readers.extraction import Extraction
 from docopt import docopt
 import logging
 

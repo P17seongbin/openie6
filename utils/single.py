@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, 'carb')
 
 from carb import Benchmark
-from oie_readers.extraction import Extraction
+from openie6.carb.oie_readers.extraction import Extraction
 from matcher import Matcher
 
 import ipdb

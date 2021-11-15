@@ -1,6 +1,6 @@
-from carb import Benchmark
-from oie_readers.extraction import Extraction
-from matcher import Matcher
+from openie6.carb.carb import Benchmark
+from openie6.carb.oie_readers.extraction import Extraction
+from openie6.carb.matcher import Matcher
 
 from collections import defaultdict
 from enum import Enum
@@ -380,8 +380,8 @@ class Conjunction():
 class Carb():
     def __init__(self, hparams, mapping=None):
         super(Carb, self).__init__()
-        self._dev_benchmark = Benchmark('carb/data/gold/dev.tsv')
-        self._test_benchmark = Benchmark('carb/data/gold/test.tsv')
+        self._dev_benchmark = Benchmark('openie6/carb/data/gold/dev.tsv')
+        self._test_benchmark = Benchmark('openie6/carb/data/gold/test.tsv')
         self.matchingFunc = Matcher.binary_linient_tuple_match
         self._all_predictions, self._all_pos_words, self._all_verb_words = {}, {}, {}
         self.score = {'carb_auc': 0.0, 'carb_f1': 0.0, 'carb_sum': 0.0}

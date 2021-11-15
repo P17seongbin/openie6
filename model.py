@@ -23,10 +23,10 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping
 from transformers import AdamW, AutoModel
 
-from oie_readers.extraction import Extraction
-import data
-import metric
-from metric import Conjunction, Carb
+from openie6.carb.oie_readers.extraction import Extraction
+import openie6.data as data
+import openie6.metric as metric
+from openie6.metric import Conjunction, Carb
 
 import threading
 from threading import Thread
